@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatApp Dashboard</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background-color: #161b22;
+            color: #58a6ff;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Chat List Section */
+        .chat-list {
+            flex: 1;
+            background-color: #161b22;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #30363d;
+        }
+
+        .chat-item {
+            background: #21262d;
+            color: #c9d1d9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .chat-item:hover {
+            background-color: #30363d;
+            transform: translateY(-2px);
+        }
+
+        /* Chat Box Section */
+        .chat-box {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            background-color: #0d1117;
+            padding: 20px;
+        }
+
+        .chat-header {
+            background-color: #161b22;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #58a6ff;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: #58a6ff #161b22;
+            scroll-behavior: smooth;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background-color: #58a6ff;
+            border-radius: 8px;
+        }
+
+        .message {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            max-width: 70%;
+        }
+
+        .message-bubble {
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .message.sent .message-bubble {
+            background-color: #238636;
+            color: #fff;
+            margin-left: auto;
+            border-top-right-radius: 0;
+        }
+
+        .message.received .message-bubble {
+            background-color: #21262d;
+            color: #c9d1d9;
+            margin-right: auto;
+            border-top-left-radius: 0;
+        }
+
+        .message-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #21262d;
+            color: #c9d1d9;
+        }
+
+        .message-input button {
+            background-color: #238636;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .message-input button:hover {
+            background-color: #2ea043;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">ChatApp</div>
+    <div class="dashboard">
+        <div class="chat-list">
+            <div class="chat-item" onclick="openChat('John Doe')">John Doe</div>
+            <div class="chat-item" onclick="openChat('Jane Smith')">Jane Smith</div>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header" id="chatHeader">Select a Friend</div>
+            <div class="messages" id="messages">
+                <div class="message received">
+                    <div class="message-bubble">Hey! How are you?</div>
+                </div>
+                <div class="message sent">
+                    <div class="message-bubble">I'm good! How about you?</div>
+                </div>
+            </div>
+            <div class="message-input">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messages = document.getElementById('messages');
+            const messageText = messageInput.value.trim();
+
+            if (messageText) {
+                const message = document.createElement('div');
+                message.className = 'message sent';
+                message.innerHTML = `<div class="message-bubble">${messageText}</div>`;
+                messages.appendChild(message);
+                messageInput.value = '';
+                messages.scrollTop = messages.scrollHeight; // Scroll to bottom
+            }
+        }
+    </script>
+</body>
+</html>

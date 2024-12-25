@@ -13,9 +13,7 @@ def send_otp(request):
     return redirect ("verify_mail")
 
 
-
 def home_page(request):
-
     return render(request,"chat/home_page.html")
 
 
@@ -47,9 +45,7 @@ def login_page(request):
 def register_page(request):
 
     if request.method == "POST":
-        
         email = request.POST.get("email").strip().lower()
-
         password = request.POST.get("password").strip()
         confirm_password = request.POST.get("confirm-password").strip()
         # print(confirm_password)
@@ -73,15 +69,11 @@ def register_page(request):
 def get_info(request):
 
     if request.method == 'POST':
-
-        
         request.session['first_name']= request.POST.get('Fname')
         request.session['last_name'] = request.POST.get('Lname')
         request.session['dob'] = request.POST.get('date_of_birt')
         request.session['gender'] = request.POST.get('gender')
-
-        
-        
+                
         return redirect("verify_mail")
 
     return render(request,"chat/get_info.html")
@@ -112,6 +104,11 @@ def veryfy_mail(request):
 
 @login_required(login_url='login_page')
 def dashboard(request):
-    ...
+
+    if request.method == "POST":
+        sender = request.user
+        message = request.POST.get("message")
+        chatroom = request.POST.get("chatroom")
+
 
     
